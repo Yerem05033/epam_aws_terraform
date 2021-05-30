@@ -1,0 +1,18 @@
+---
+# tasks file for php
+- name: 'install php required packages'
+  apt:
+    name: 
+      - 'php'
+      - 'php-fpm'
+      - 'php-mysql'
+    state: 'present'
+    update_cache: true
+  become: true
+
+- name: 'php-fpm is started'
+  service:
+    name: 'php7.4-fpm'
+    state: 'started'
+    enabled: true
+  become: true

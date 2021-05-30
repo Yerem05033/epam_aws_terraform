@@ -1,0 +1,3 @@
+---
+# defaults file for php
+php-version: '7.4'

@@ -1,0 +1,10 @@
+---
+# defaults file for nginx
+nginx-version: '1.18.0'
+nginx_listen_port: '80'
+nginx_owner: 'root'
+nginx_group: 'root'
+nginx_server_name: 'localhost'
+nginx_doc_root: '/var/www/html'
+nginx_index_file: 'index.html'
+nginx_php_fpm_sack_path: '/var/run/php/php-fpm.sock'

@@ -1,0 +1,34 @@
+---
+# tasks file for wordpress
+- name: 'install required packages'
+  apt:
+    name: 'unzip'
+    state: 'present'
+    update_cache: true
+  become: true
+
+- name: 'Download and extract Wordpress files'
+  unarchive:
+    src: '{{wordpress_archive_source}}'
+    dest: '/var/www/html/'
+    owner: '{{wordpress_user}}'
+    group: '{{wordpress_group}}'
+    remote_src: true 
+  become: true 
+
+- name: 'Create a new database with name wordpress1_db'
+  community.mysql.mysql_db:
+    name: '{{wordpress_mysql_db_name}}'
+    state: present
+    login_user: '{{wordpress_mysql_login_user}}'
+    login_password: '{{wordpress_mysql_login_password}}'
+  become: true  
+
+- name: 'Config file transfere'
+  template:
+    src: 'wp-config.php.j2'
+    dest: '/var/www/html/wordpress/wp-config.php'
+    owner: '{{wordpress_user}}'
+    group: '{{wordpress_group}}'
+  become: true  
+  notify: '{{wordpress_nginx_handler_name}}'

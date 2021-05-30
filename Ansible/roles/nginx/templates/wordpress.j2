@@ -1,0 +1,16 @@
+
+server {
+	listen {{nginx_listen_port}} ;
+	server_name {{nginx_server_name}};
+	root {{nginx_doc_root}};
+
+	index {{nginx_index_file}};
+
+	location ~ \.php$ {
+               include snippets/fastcgi-php.conf;
+               fastcgi_pass unix:{{nginx_php_fpm_sack_path}};
+            }
+	
+}
+
+

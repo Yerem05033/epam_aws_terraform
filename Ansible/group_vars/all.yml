@@ -1,0 +1,18 @@
+---
+mysql_root_password: '123456'
+mysql_user: 'wordpress1_user'
+mysql_user_passwd: 'my_password1'
+mysql_user_priv: 'wordpress1_db.*:ALL'
+
+nginx_doc_root: '/var/www/html/wordpress'
+nginx_index_file: 'index.php index.html'
+nginx_server_name: 'localhost'
+nginx-php-fpm-sack-path: '/var/run/php/php{{php-version}}-fpm.sock'
+
+
+wordpress_db_name: 'wordpress1_db'
+
+wordpress_mysql_db_name: '{{wordpress_db_name}}'
+wordpress_mysql_db_user: '{{mysql_user}}'
+wordpress_mysql_db_passwdord: '{{mysql_user_passwd}}'
+wordpress_mysql_login_password: '{{mysql_root_password}}'

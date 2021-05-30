@@ -1,0 +1,45 @@
+---
+# tasks file for nginx
+- name: 'install required packages'
+  apt:
+    name: 'nginx'
+    state: 'present'
+    update_cache: true
+  become: true
+
+# - name: 'wordpress nginx config file'
+#   template:
+#     src: 'wordpress.conf.j2'
+#     dest: '/etc/nginx/sites-available/wordpress'
+#     owner: '{{nginx_owner}}'
+#     group: '{{nginx_group}}'
+#     mode: '0644'
+#   become: true
+   
+- name: 'Create config file  for wordpress Nginx config'
+  template:
+    src: 'wordpress.j2'
+    dest: '/etc/nginx/sites-enabled/wordpress'
+    owner: '{{nginx_owner}}'
+    group: '{{nginx_group}}'
+    mode: '0644'
+  become: true
+
+- name: Delete default nginx config
+  file:
+    path: '/etc/nginx/sites-enabled/default'
+    state: absent
+  become: true  
+- name: 'stop apache'
+  service:
+    name: 'apache2'
+    state: 'stopped'
+    enabled: false
+  become: true
+  
+- name: 'Nginx is started'
+  service:
+    name: 'nginx'
+    state: 'restarted'
+    enabled : true
+  become: true
